@@ -14,18 +14,21 @@ class WebSocketEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $data;
+
     /**
      * Create a new event instance.
      */
-    public function __construct()
+    public function __construct($data)
     {
         //
-        $this->data = [
+        $this->data = json_encode([
             'event' => 'test',
             'data' => [
+                'data'=> $data,
                 'message' => 'Hello World!',
             ],
-        ];
+        ]);
     }
 
     /**
@@ -36,7 +39,29 @@ class WebSocketEvent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('testing'),
+            new Channel('test'),
+        ];
+    }
+
+    /**
+     * The event's broadcast name.
+     *
+     * @return string
+     */
+    public function broadcastAs(): string
+    {
+        return 'testing';
+    }
+
+    /**
+     * The event's broadcast name.
+     *
+     * @return string
+     */
+    public function broadcastWith(): array
+    {
+        return [
+            'message' => 'Hello World!',
         ];
     }
 }

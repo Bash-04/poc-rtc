@@ -37,7 +37,7 @@ return [
             'app_id' => env('PUSHER_APP_ID'),
             'options' => [
                 'cluster' => env('PUSHER_APP_CLUSTER'),
-                'host' => 'docker.host.internal',
+                'host' => 'host.docker.internal',
                 'port' => 6001,
                 'scheme' => 'http',
                 'encrypted' => true,

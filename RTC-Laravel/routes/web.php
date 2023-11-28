@@ -19,7 +19,7 @@ Route::get('/', function () {
 Route::get(
     '/test',
     function () {
-        event(new App\Events\WebSocketEvent('Hello World!'));
+        event(new App\Events\WebSocketEvent(json_encode(['message' => 'Hello World!'])));
         return 'Event Run Successfully.';
     }
 );

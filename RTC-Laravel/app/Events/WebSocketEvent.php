@@ -39,7 +39,7 @@ class WebSocketEvent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new Channel('test'),
+            new Channel('websocket'),
         ];
     }
 
@@ -50,7 +50,7 @@ class WebSocketEvent implements ShouldBroadcast
      */
     public function broadcastAs(): string
     {
-        return 'testing';
+        return 'websockettest';
     }
 
     /**

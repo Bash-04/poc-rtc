@@ -17,6 +17,6 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-Broadcast::channel('testing', function () {
-    return 'Hello, world!';
+Broadcast::channel('testing', function ($data) {
+    return 'Hello, world!'.json_encode($data);
 });

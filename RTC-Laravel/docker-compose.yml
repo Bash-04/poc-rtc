@@ -1,5 +1,6 @@
 version: '3'
 services:
+    # Laravel Application Service
     app:
         build:
             context: .
@@ -11,6 +12,7 @@ services:
             - 'vendor:/var/www/vendor'
         networks:
             - laravel
+
     nginx:
         image: 'nginx:alpine'
         container_name: nginx_server
@@ -23,6 +25,8 @@ services:
             - app
         networks:
             - laravel
+
+    # MySQL Service
     mysql:
         image: 'mysql:8.0'
         container_name: mysql_database
@@ -37,6 +41,8 @@ services:
             - 'sailmysql:/var/lib/mysql'
         networks:
             - laravel
+
+    # PHPMyAdmin Service
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
         container_name: phpmyadmin_server
@@ -49,13 +55,31 @@ services:
             - mysql
         networks:
             - laravel
+
+    # WebSocket Service
+    websockets:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: poc-laravel-websockets
+        working_dir: /var/www
+        command: php artisan websockets:serve
+        ports:
+            - "6001:6001"
+        volumes:
+            - .:/var/www
+            - vendor:/var/www/vendor
+        depends_on:
+            - app
+        networks:
+            - laravel
+
 networks:
     laravel:
         driver: bridge
+
 volumes:
     vendor:
         driver: local
     sailmysql:
-        driver: local
-    sail-mysql:
         driver: local

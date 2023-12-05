@@ -26,7 +26,6 @@ class WebSocketEvent implements ShouldBroadcast
             'event' => 'test',
             'data' => [
                 'data'=> $data,
-                'message' => 'Hello World!',
             ],
         ]);
     }
@@ -48,20 +47,10 @@ class WebSocketEvent implements ShouldBroadcast
      *
      * @return string
      */
-    public function broadcastAs(): string
-    {
-        return 'websockettest';
-    }
-
-    /**
-     * The event's broadcast name.
-     *
-     * @return string
-     */
     public function broadcastWith(): array
     {
         return [
-            'message' => 'Hello World!',
+            'data' => $this->data,
         ];
     }
 }

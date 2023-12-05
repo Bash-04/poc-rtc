@@ -17,6 +17,7 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-Broadcast::channel('testing', function ($data) {
-    return 'Hello, world!'.json_encode($data);
+Broadcast::channel('websocket', function ($user) {
+    // You can customize the authorization logic here if needed
+    return true; // For simplicity, allowing all users to listen to this channel
 });

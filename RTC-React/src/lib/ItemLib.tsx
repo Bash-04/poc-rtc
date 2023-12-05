@@ -1,37 +1,49 @@
 import Echo from "laravel-echo";
 import pusherJs from "pusher-js";
 
-async function GetItemsWS() {
-    const pusher = new pusherJs('83c5a5f367ed11bb2adf', {
-        wsHost: window.location.hostname,
-        wsPort: 6001,
-        cluster: 'eu',
-        forceTLS: false,
-        disableStats: true,
-        enabledTransports: ['ws', 'wss'],
-    });
-    
-    const echo = new Echo({
-        broadcaster: 'pusher',
-        key: '83c5a5f367ed11bb2adf',
-        cluster: 'eu',
-        encrypted: false,
-        wsHost: window.location.hostname,
-        wsPort: 6001,
-        forceTLS: false,
-        authEndpoint: 'http://localhost/broadcasting/auth',
-        auth: {
-            headers: {
-                Authorization: `1|c180y6bAUMa9qoeZ8o0SuXmmYrxwZxz78VpRhBjnca2cf514`,
-                Accept: 'application/json'
-            }
-        }
-    });
+const pusher = new pusherJs('abc', {
+    wsHost: window.location.hostname,
+    wsPort: 6001,
+    cluster: 'eu',
+    forceTLS: false,
+    disableStats: true,
+    enabledTransports: ['ws', 'wss'],
+});
 
+const echo = new Echo({
+    broadcaster: 'pusher',
+    key: 'abc',
+    cluster: 'eu',
+    encrypted: false,
+    wsHost: window.location.hostname,
+    wsPort: 6001,
+    forceTLS: false,
+    authEndpoint: 'http://localhost/broadcasting/auth',
+    auth: {
+        headers: {
+            Authorization: `2|8xwSSfmaTMttjYKkfbKXkPO7kcPv5ZZaSbH3R0dM12a5ffbe`,
+            Accept: 'application/json'
+        }
+    }
+});
+
+async function GetItemsWS() {
     try {
-        echo.channel('parkingspots').listen('parkingspotUpdated', (e) => {
-            console.log(e);
-            alert(e?.message);
+        echo.channel('websocket').listen('WebSocketEvent', (e) => {
+            // Parse the JSON string in the "data" property
+            const eventData = JSON.parse(e.data);
+        
+            // Access the nested "data" property and parse its value
+            const messageData = JSON.parse(eventData.data.data);
+        
+            // Access the "message" property
+            const alertMessage = messageData.message;
+
+            console.log(eventData);
+            console.log(messageData);
+            console.log(alertMessage);
+            
+            alert(alertMessage);
         });
         console.log('Subscribed to channel via echo! and listening to event');
 

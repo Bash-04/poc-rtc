@@ -1,6 +1,19 @@
 # poc-rtc
 Proof of Concept for Real-time Communication Protocols with Laravel as back-end
 
+## Running the POC
+### Web Sockets
+1) Clone <a href="https://github.com/Bash-04/poc-rtc">this</a> repository to your local device
+2) Open terminal
+3) Run 'cd {project-location}\poc-rtc\RTC-Laravel'
+4) Run 'docker-compose up --build -d'
+5) Run 'cd .. && cd RTC-React'
+6) Run 'npm run dev'
+7) Open the browser and go to 'http://localhost:5174/'
+8) Now open a second browser tab and go to 'http://localhost/test'
+9) Open the first browser tab again and see the alert pop-up
+10) WELL DONE! You've ran a websocket event with Laravel and React TS!
+
 ## POC
 ### <a href="./RTC-React/">React TS</a>
 The Proof of Concept is shown by a react front-end application showing some fun functionalities with the RTC services. 
